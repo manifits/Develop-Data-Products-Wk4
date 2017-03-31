@@ -1,0 +1,29 @@
+---
+title: "statedata_readme"
+author: "manifits"
+date: "March 30, 2017"
+output: html_document
+---
+# Developing Data Products Wk4 Project
+This shiny app is based on the state.x77 data set.
+
+
+# state.x77 explorer
+First, the user selects the Region of interest on the left side panel.
+    
+    
+There is a main tab and a data tab. 
+    
+   
+In the main tab, the user can select to display 
+the US choropleth map by Population, by Income or by number of High School Graduates, 
+which refreshes itself accordingly. 
+   
+   
+When the user hovers over the state, a pop up showing the state name and the parameter of interest is displayed.
+   
+   
+In the data tab, the user is able to look at the actual data and download a copy of it.
+
+
+

@@ -1,0 +1,64 @@
+---
+title: "Developing Data Products wk4 Assignment"
+author: "manifits"
+date: "March 31, 2017"
+output: ioslides_presentation
+---
+
+## Introduction 
+  
+The shiny webapp, **state.x77 Explorer** app, hosted at https://manifits.shinyapps.io/states/ is a wk4 assignment effort for the Developing Data Products course.
+   
+The state.x77 dataset contains various information about 50 states in the US as of the 1970s. We created a dataframe with the fields: state.region, state.name, state.abb, Population, Income, HS.Grad and Illiteracy.
+   
+   
+   
+## The Application
+  
+The left side panel allows users to select the US region. At the top there is a **Main** panel and a **About**. 
+   
+The former is where the bulk of the application resides. The latter provides some information about the app.
+    
+The **Main** panel has two tabs. The first is **Plot** and the second is **Data**.
+   
+   
+   
+## The Main Panel
+   
+On the **Plot** tab, the user can select to display the US choropleth map by Population, by Income or by High School Graduates.  
+  
+When the user hovers over the states, the relevant parameter is displayed in a pop up.
+  
+The **Data** tab displays the downloadable data in a table.
+  
+The plotly map and data are reactive in that changes to the selection criteria will refresh the maps and table accordingly.
+     
+   
+   
+## Choropleth Map Output
+    
+Source code for the app is at [Github](https://github.com/manifits/Develop-Data-Products-Wk4)
+
+Because of memory issues, open in browser to see the map.
+    
+```{r,echo=FALSE, size='tiny', cache=FALSE, warning=FALSE, message=FALSE}
+library(plotly)
+
+map_options <- list(scope='usa',projection=list(type='albers usa'),
+               showlakes = TRUE, lakecolor = toRGB('white'))  
+    
+statedata <- data.frame(state.region, state.abb, state.name,
+              Pop = as.vector(state.x77[,1]),
+              Income=as.vector(state.x77[,2]),
+              Grad=as.vector(state.x77[,6]))
+statedata$hover1 <- with(statedata, paste(state.name))
+
+plot_ly(statedata, z=~Pop, text=~hover1, locations=~state.abb,
+              type = 'choropleth', locationmode = 'USA-states',
+              color = statedata$Pop, colors = 'Blues',
+              marker = list(line=borders)) %>%
+      layout(title = 'US Population in 1975', geo=map_options)
+```
+
+
+
